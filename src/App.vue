@@ -1,5 +1,12 @@
 <script lang="ts">
+import PostForm from './components/PostForm.vue'
+import PostList from './components/PostList.vue'
+
 export default {
+  components: {
+    PostForm,
+    PostList,
+  },
   data() {
     return {
       list: [
@@ -34,15 +41,8 @@ export default {
 </script>
 
 <template>
-  <form @submit.stop.prevent="submitHandler">
-    <input type="text" v-bind:value="title" @change="setTitle" />
-    <input type="text" v-bind:value="description" @change="setDescription" />
-    <button type="submit">add</button>
-  </form>
-  <div class="list" v-for="item of list">
-    <div class="title">{{ item.title }}</div>
-    <div class="description">{{ item.description }}</div>
-  </div>
+  <PostForm v-bind:title="title" />
+  <PostList v-bind:list="list" />
 </template>
 
 <style scoped>
