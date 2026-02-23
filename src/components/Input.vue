@@ -5,15 +5,10 @@ export default {
       value: '', // состояние для Input
     }
   },
-  methods: {
-    setValue(e) {
-      this.value = e.target.value
-    },
-  },
 }
 </script>
 <template>
-  <input type="text" @change="title = $event.currentTarget.value" !:value="value" />
+  <input type="text" v-model="value" />
 </template>
 
 <style scoped></style>

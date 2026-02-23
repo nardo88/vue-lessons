@@ -15,33 +15,18 @@ export default {
         { _id: 3, title: 'title3', description: 'description 3' },
         { _id: 4, title: 'title4', description: 'description 4' },
       ],
-      title: '',
-      description: '',
     }
   },
   methods: {
-    setTitle(e: any) {
-      this.title = e.target.value
-    },
-    setDescription(e: any) {
-      this.description = e.target.value
-    },
-    submitHandler() {
-      this.list.push({
-        _id: Date.now(),
-        title: this.title,
-        description: this.description,
-      })
-
-      this.title = ''
-      this.description = ''
+    createPost(post: any) {
+      this.list.push(post)
     },
   },
 }
 </script>
 
 <template>
-  <PostForm v-bind:title="title" />
+  <PostForm v-bind:title="title" @create="createPost" />
   <PostList v-bind:list="list" />
 </template>
 
@@ -49,9 +34,5 @@ export default {
 * {
   padding: 0;
   margin: 0;
-}
-
-.list {
-  display: flex;
 }
 </style>

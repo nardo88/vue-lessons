@@ -1,5 +1,9 @@
 <script>
+import PostItem from './PostItem.vue'
 export default {
+  components: {
+    PostItem,
+  },
   props: {
     list: {
       type: Array,
@@ -9,9 +13,7 @@ export default {
 }
 </script>
 <template>
-  <div class="list" v-for="item of list">
-    <div class="title">{{ item.title }}</div>
-    <div class="description">{{ item.description }}</div>
-  </div>
+  <PostItem v-for="item of list" :title="item.title" :description="item.description" />
 </template>
+
 <style></style>
