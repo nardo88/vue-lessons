@@ -1,6 +1,13 @@
 import { createApp } from 'vue'
 import './style.css'
 import App from './App.vue'
+import Button from './components/ui/Button.vue'
+import Input from './components/ui/Input.vue'
 
-createApp(App) // создаем инстанс приложения Vue
-  .mount('#app') // Монтируем его в DOM элемент с селектором #app
+const app = createApp(App)
+
+// Регистрация компонента
+app.component('Button', Button)
+app.component('Input', Input)
+
+app.mount('#app')

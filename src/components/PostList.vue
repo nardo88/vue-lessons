@@ -12,8 +12,9 @@ export default {
   },
 }
 </script>
+
 <template>
-  <PostItem v-for="item of list" :title="item.title" :description="item.description" />
+  <PostItem v-for="item of list" :id="item.id" :title="item.title" :description="item.description" />
 </template>
 
 <style></style>

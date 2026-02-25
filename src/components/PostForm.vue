@@ -1,18 +1,21 @@
 <script>
+import Button from './ui/Button.vue'
+
 export default {
-  props: {
-    title: {
-      type: String,
-      required: true,
-    },
+  components: {
+    Button,
   },
   methods: {
     createPost() {
-      this.$emit('create', this.post)
+      this.$emit('create', { ...this.post, id: Date.now() })
       this.post = {
         title: '',
         description: '',
       }
+    },
+    remove() {},
+    changeTitle(v) {
+      this.title = v
     },
   },
   data() {
@@ -26,11 +29,17 @@ export default {
 }
 </script>
 <template>
-  <form @submit.stop.prevent="createPost">
-    <input type="text" v-model="post.title" />
-    <input type="text" v-model="post.description" />
-    <button type="submit">add</button>
+  <form @submit.stop.prevent="createPost" class="form">
+    <Input type="text" v-model:value="post.title" />
+    <Input type="text" v-model:value="post.description" />
+    <Button type="submit">add</Button>
   </form>
 </template>
 
-<style></style>
+<style scoped>
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+</style>
