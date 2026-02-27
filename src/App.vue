@@ -15,11 +15,19 @@ export default {
         { id: 3, title: 'title3', description: 'description 3' },
         { id: 4, title: 'title4', description: 'description 4' },
       ],
+      show: false,
     }
   },
   methods: {
     createPost(post: any) {
       this.list.push(post)
+      this.show = false
+    },
+    remove(id: string) {
+      this.list = this.list.filter((i: any) => i.id !== id)
+    },
+    showModal() {
+      this.show = true
     },
   },
 }
@@ -27,8 +35,13 @@ export default {
 
 <template>
   <div class="container">
-    <PostForm @create="createPost" />
-    <PostList v-bind:list="list" />
+    <h2>Страница с постами</h2>
+    <Button @click="showModal">Создать пост</Button>
+    <Modal v-show="show" v-model:show="show">
+      <PostForm @create="createPost" />
+    </Modal>
+    <PostList v-if="list.length" v-bind:list="list" @remove="remove" />
+    <h2 v-else>Список постов пуст</h2>
   </div>
 </template>
 
@@ -36,6 +49,7 @@ export default {
 * {
   padding: 0;
   margin: 0;
+  font-family: sans-serif;
 }
 
 .container {

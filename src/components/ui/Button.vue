@@ -10,7 +10,7 @@ export default {
 }
 </script>
 <template>
-  <button @click="click" class="button" :type="type">
+  <button v-on:click="click" class="button" :type="type">
     <slot></slot>
   </button>
 </template>

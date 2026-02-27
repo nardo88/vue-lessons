@@ -10,11 +10,17 @@ export default {
       required: true,
     },
   },
+  methods: {
+    remove(id) {
+      this.$emit('remove', id)
+    },
+  },
 }
 </script>
 
 <template>
-  <PostItem v-for="item of list" :id="item.id" :title="item.title" :description="item.description" />
+  <h2>Posts list</h2>
+  <PostItem v-for="item of list" :id="item.id" :title="item.title" :description="item.description" @remove="remove" />
 </template>
 
 <style></style>
