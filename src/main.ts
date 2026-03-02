@@ -4,6 +4,7 @@ import App from './App.vue'
 import Button from './components/ui/Button.vue'
 import Input from './components/ui/Input.vue'
 import Modal from './components/ui/Modal.vue'
+import Selector from './components/ui/Selector.vue'
 
 const app = createApp(App)
 
@@ -11,5 +12,6 @@ const app = createApp(App)
 app.component('Button', Button)
 app.component('Input', Input)
 app.component('Modal', Modal)
+app.component('Selector', Selector)
 
 app.mount('#app')

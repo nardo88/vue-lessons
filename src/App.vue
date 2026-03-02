@@ -9,10 +9,17 @@ interface IPost {
   description: string
 }
 
+interface ISelectItem {
+  value: string
+  title: string
+}
+
 interface IState {
   list: IPost[]
   show: boolean
   isLoading: boolean
+  selectList: ISelectItem[]
+  sort: string
 }
 
 export default {
@@ -25,6 +32,11 @@ export default {
       list: [],
       show: false,
       isLoading: false,
+      selectList: [
+        { value: 'desc', title: 'desc' },
+        { value: 'asc', title: 'asc' },
+      ],
+      sort: 'desc',
     }
   },
   methods: {
@@ -42,7 +54,12 @@ export default {
   async created() {
     try {
       this.isLoading = true
-      const { data } = await api.get('/items')
+      const { data } = await api.get('/items', {
+        params: {
+          sortBy: 'title',
+          sortOrder: 'desc',
+        },
+      })
       this.list = data.data
     } catch (error) {
       console.log('error: ', error)
@@ -57,6 +74,7 @@ export default {
   <div class="container">
     <h2>Страница с постами</h2>
     <Button @click="showModal">Создать пост</Button>
+    <Selector :options="selectList" v-model:value="sort" />
     <Modal v-show="show" v-model:show="show">
       <PostForm @create="createPost" />
     </Modal>
