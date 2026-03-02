@@ -15,8 +15,8 @@ export default {
     },
   },
   methods: {
-    remove() {
-      this.$emit('remove', this.id)
+    deleteItem() {
+      this.$emit('deleteItem', this.id)
     },
   },
 }
@@ -26,7 +26,7 @@ export default {
   <div class="post">
     <div class="title">{{ title }}</div>
     <div class="description">{{ description }}</div>
-    <Button @click="remove">Удалить</Button>
+    <Button @click="deleteItem">Удалить</Button>
   </div>
 </template>
 

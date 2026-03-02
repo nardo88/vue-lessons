@@ -11,8 +11,8 @@ export default {
     },
   },
   methods: {
-    remove(id) {
-      this.$emit('remove', id)
+    deleteItem(id) {
+      this.$emit('deleteItem', id)
     },
   },
 }
@@ -20,7 +20,12 @@ export default {
 
 <template>
   <h2>Posts list</h2>
-  <PostItem v-for="item of list" :id="item.id" :title="item.title" :description="item.description" @remove="remove" />
+  <PostItem
+    v-for="item of list"
+    :id="item.id"
+    :title="item.title"
+    :description="item.description"
+    @deleteItem="deleteItem" />
 </template>
 
 <style></style>

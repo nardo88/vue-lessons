@@ -1,21 +1,30 @@
 <script lang="ts">
+import { api } from './components/api'
 import PostForm from './components/PostForm.vue'
 import PostList from './components/PostList.vue'
+
+interface IPost {
+  id: number
+  title: string
+  description: string
+}
+
+interface IState {
+  list: IPost[]
+  show: boolean
+  isLoading: boolean
+}
 
 export default {
   components: {
     PostForm,
     PostList,
   },
-  data() {
+  data(): IState {
     return {
-      list: [
-        { id: 1, title: 'title1', description: 'description 1' },
-        { id: 2, title: 'title2', description: 'description 2' },
-        { id: 3, title: 'title3', description: 'description 3' },
-        { id: 4, title: 'title4', description: 'description 4' },
-      ],
+      list: [],
       show: false,
+      isLoading: false,
     }
   },
   methods: {
@@ -23,12 +32,23 @@ export default {
       this.list.push(post)
       this.show = false
     },
-    remove(id: string) {
+    deleteItem(id: string) {
       this.list = this.list.filter((i: any) => i.id !== id)
     },
     showModal() {
       this.show = true
     },
+  },
+  async created() {
+    try {
+      this.isLoading = true
+      const { data } = await api.get('/items')
+      this.list = data.data
+    } catch (error) {
+      console.log('error: ', error)
+    } finally {
+      this.isLoading = false
+    }
   },
 }
 </script>
@@ -40,7 +60,7 @@ export default {
     <Modal v-show="show" v-model:show="show">
       <PostForm @create="createPost" />
     </Modal>
-    <PostList v-if="list.length" v-bind:list="list" @remove="remove" />
+    <PostList v-if="list.length" v-bind:list="list" @deleteItem="deleteItem" />
     <h2 v-else>Список постов пуст</h2>
   </div>
 </template>
