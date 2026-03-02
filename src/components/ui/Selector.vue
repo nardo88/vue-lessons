@@ -17,7 +17,7 @@ export default {
 </script>
 <template>
   <select class="select" @change="onChange" :value="value">
-    <option class="option" v-for="item of options">{{ item.title }}</option>
+    <option class="option" v-for="item of options" key="item.value" :value="item.value">{{ item.title }}</option>
   </select>
 </template>
 <style>

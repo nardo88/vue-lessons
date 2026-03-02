@@ -50,22 +50,41 @@ export default {
     showModal() {
       this.show = true
     },
+    async fetchList() {
+      try {
+        this.isLoading = true
+        const { data } = await api.get('/items', {
+          params: {
+            sortBy: 'title',
+            sortOrder: this.sort,
+          },
+        })
+        this.list = data.data
+      } catch (error) {
+        console.log('error: ', error)
+      } finally {
+        this.isLoading = false
+      }
+    },
   },
-  async created() {
-    try {
-      this.isLoading = true
-      const { data } = await api.get('/items', {
-        params: {
-          sortBy: 'title',
-          sortOrder: 'desc',
-        },
-      })
-      this.list = data.data
-    } catch (error) {
-      console.log('error: ', error)
-    } finally {
-      this.isLoading = false
-    }
+  watch: {
+    list: {
+      handler(val: string) {
+        console.log('val: ', val)
+      },
+      deep: true,
+    },
+    sort(_newVal: string) {
+      this.fetchList()
+    },
+  },
+  computed: {
+    sortedList() {
+      return [...this.list].sort((a, b) => (a.description > b.description ? -1 : 1))
+    },
+  },
+  async mounted() {
+    this.fetchList()
   },
 }
 </script>
