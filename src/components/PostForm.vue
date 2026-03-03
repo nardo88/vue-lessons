@@ -32,7 +32,7 @@ export default {
   <form @submit.stop.prevent="createPost" class="form">
     <Input type="text" v-model:value="post.title" />
     <Input type="text" v-model:value="post.description" />
-    <Button type="submit">add</Button>
+    <Button :disabled="!post.title || !post.description" type="submit">add</Button>
   </form>
 </template>
 
@@ -41,5 +41,9 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+.test {
+  background-color: red;
 }
 </style>

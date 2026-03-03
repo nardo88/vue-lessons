@@ -6,11 +6,21 @@ export default {
       type: String,
       default: 'button',
     },
+    disabled: {
+      type: Boolean,
+    },
   },
 }
 </script>
 <template>
-  <button v-on:click="click" class="button" :type="type">
+  <button
+    v-on:click="click"
+    :style="{
+      boxShadow: '0 0 5px 5px red',
+    }"
+    class="button"
+    :class="{ disabled }"
+    :type="type">
     <slot></slot>
   </button>
 </template>
@@ -27,5 +37,11 @@ export default {
   color: #16b0ec;
   font-style: 16px;
   text-transform: uppercase;
+}
+
+.disabled {
+  color: gray;
+  border: 1px solid gray;
+  cursor: default;
 }
 </style>
