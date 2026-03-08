@@ -42,8 +42,4 @@ export default {
   flex-direction: column;
   gap: 12px;
 }
-
-.test {
-  background-color: red;
-}
 </style>

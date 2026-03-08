@@ -5,6 +5,7 @@ import Button from './components/ui/Button.vue'
 import Input from './components/ui/Input.vue'
 import Modal from './components/ui/Modal.vue'
 import Selector from './components/ui/Selector.vue'
+import { router } from './router'
 
 const app = createApp(App)
 
@@ -14,4 +15,6 @@ app.component('Input', Input)
 app.component('Modal', Modal)
 app.component('Selector', Selector)
 
-app.mount('#app')
+app
+  .use(router) // Подключаем роутинг
+  .mount('#app')

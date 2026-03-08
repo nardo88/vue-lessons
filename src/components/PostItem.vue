@@ -24,9 +24,14 @@ export default {
 
 <template>
   <div class="post">
-    <div class="title">{{ title }}</div>
-    <div class="description">{{ description }}</div>
-    <Button @click="deleteItem">Удалить</Button>
+    <div>
+      <div class="title">{{ title }}</div>
+      <div class="description">{{ description }}</div>
+    </div>
+    <div class="btn_wrapper">
+      <Button @click="deleteItem">Удалить</Button>
+      <Button @click="$router.push(`/posts/${id}`)">Читать</Button>
+    </div>
   </div>
 </template>
 
@@ -34,5 +39,13 @@ export default {
 .post {
   padding: 16px;
   border: 1px solid gray;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.btn_wrapper {
+  display: flex;
+  gap: 16px;
 }
 </style>

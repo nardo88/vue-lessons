@@ -15,9 +15,6 @@ export default {
       this.$emit('deleteItem', id)
     },
   },
-  mounted() {
-    console.log(this.$refs.list[0])
-  },
 }
 </script>
 

@@ -13,14 +13,7 @@ export default {
 }
 </script>
 <template>
-  <button
-    v-on:click="click"
-    :style="{
-      boxShadow: '0 0 5px 5px red',
-    }"
-    class="button"
-    :class="{ disabled }"
-    :type="type">
+  <button v-on:click="click" class="button" :class="{ disabled }" :type="type">
     <slot></slot>
   </button>
 </template>
@@ -33,8 +26,8 @@ export default {
   border-radius: 8px;
   cursor: pointer;
   background: transparent;
-  border: 1px solid #16b0ec;
-  color: #16b0ec;
+  border: 1px solid var(--var-blue);
+  color: var(--var-blue);
   font-style: 16px;
   text-transform: uppercase;
 }
