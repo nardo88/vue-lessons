@@ -6,6 +6,7 @@ import Input from './components/ui/Input.vue'
 import Modal from './components/ui/Modal.vue'
 import Selector from './components/ui/Selector.vue'
 import { router } from './router'
+import { store } from './store'
 
 const app = createApp(App)
 
@@ -17,4 +18,5 @@ app.component('Selector', Selector)
 
 app
   .use(router) // Подключаем роутинг
+  .use(store)
   .mount('#app')

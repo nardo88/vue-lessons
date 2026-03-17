@@ -1,13 +1,6 @@
 <script lang="ts">
-import { api } from '../components/api'
 import PostForm from '../components/PostForm.vue'
 import PostList from '../components/PostList.vue'
-
-interface IPost {
-  id: number
-  title: string
-  description: string
-}
 
 interface ISelectItem {
   value: string
@@ -15,9 +8,6 @@ interface ISelectItem {
 }
 
 interface IState {
-  list: IPost[]
-  show: boolean
-  isLoading: boolean
   selectList: ISelectItem[]
   sort: string
 }
@@ -29,9 +19,6 @@ export default {
   },
   data(): IState {
     return {
-      list: [],
-      show: false,
-      isLoading: false,
       selectList: [
         { value: 'desc', title: 'desc' },
         { value: 'asc', title: 'asc' },
@@ -39,59 +26,46 @@ export default {
       sort: 'desc',
     }
   },
+  computed: {
+    getShow(): boolean {
+      return this.$store.state.posts.show
+    },
+  },
   methods: {
-    createPost(post: any) {
-      this.list.push(post)
-      this.show = false
-    },
-    deleteItem(id: string) {
-      this.list = this.list.filter((i: any) => i.id !== id)
-    },
     showModal() {
-      this.show = true
+      this.$store.commit('posts/showModal')
     },
-    async fetchList() {
-      try {
-        this.isLoading = true
-        const { data } = await api.get('/items', {
-          params: {
-            sortBy: 'title',
-            sortOrder: this.sort,
-          },
-        })
-        this.list = data.data
-      } catch (error) {
-        console.error('error: ', error)
-      } finally {
-        this.isLoading = false
-      }
+    deleteItem(id: number) {
+      this.$store.commit('posts/deletePots', id)
+    },
+    createPost(post: any) {
+      this.$store.commit('posts/addPost', post)
     },
   },
   watch: {
-    sort(_newVal: string) {
-      this.fetchList()
+    getShow(val) {
+      console.log(val)
     },
   },
-  computed: {
-    sortedList() {
-      return [...this.list].sort((a, b) => (a.description > b.description ? -1 : 1))
-    },
-  },
+
   async mounted() {
-    this.fetchList()
+    this.$store.dispatch('posts/fetchPosts')
   },
 }
 </script>
 
 <template>
   <div class="container">
-    <h2>Страница с постами</h2>
+    <h2>Страница с постами {{ getShow }}</h2>
     <Button @click="showModal">Создать пост</Button>
     <Selector :options="selectList" v-model:value="sort" />
-    <Modal v-show="show" v-model:show="show">
+    <Modal v-show="this.$store.state.posts.show" v-model:show="this.$store.state.posts.show">
       <PostForm @create="createPost" />
     </Modal>
-    <PostList v-if="list.length" v-bind:list="list" @deleteItem="deleteItem" />
+    <PostList
+      v-if="this.$store.state.posts.list.length"
+      v-bind:list="this.$store.state.posts.list"
+      @deleteItem="deleteItem" />
     <h2 v-else>Список постов пуст</h2>
   </div>
 </template>

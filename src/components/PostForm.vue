@@ -7,7 +7,7 @@ export default {
   },
   methods: {
     createPost() {
-      this.$emit('create', { ...this.post, id: Date.now() })
+      this.$emit('create', { ...this.post })
       this.post = {
         title: '',
         description: '',
